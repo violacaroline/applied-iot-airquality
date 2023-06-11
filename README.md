@@ -76,15 +76,28 @@ Explain all material that is needed. All sensors, where you bought them and thei
 How is the device programmed? Which IDE are you using? Describe all steps from flashing the firmware to installing plugins in your favorite editor and how flashing is done on MicroPython. The aim is that a beginner should be able to understand.
 
 #### Chosen IDE
+
+For this project I have chosen to use Visual Studio Code as my Integrated Development Environment. I have this IDE installed on my computer since before, but if you don't you can download it from here: https://code.visualstudio.com/download
+
+#### Extensions
+
+To interact with the Pico I will be using the extension "Pymakr" which you can find by searching for it under the "Extensions" tab on the left hand side of VSCode. This extensions simplifies the development and provides several tools and access to the REPL.
+
+#### Flashing Pico
+
+If the Pico W is new it will need the micropython firmware installed on it.
+
+Download the UF2 file from here: https://micropython.org/download/rp2-pico-w/
+
+You can then proceed to press the onboard bootsel button (placing the Pico W in download mode) while connecting the microcontroller to the computer. When the drive/file explorer (RPI-RP2) opens you can release the bootsel button and drag and drop the previously downloaded UF2 file onto the RPI-RP2, upon which the Pico will reboot and now run micropython
+
 #### How the code is uploaded
+
+To be able to actually run the code you write in VSCode you need to upload it to the Pico W first. You can do that by
+
 #### Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
 
-* VSCode - I already had my IDE installed at the start of the project.
-* Extensions - I then went to install the Pico-W-Go extension via VSCode, which allows me to communicate with the Pico as well as provides autocompletion and REPL console.
-* Flashing Pico - The Pico W was new and needed the micropython firmware installed on it. I proceeded to press the onboard bootsel button while I connected the microcontroller to my computer. When the drive/file explorer (RPI-RP2) opened I released the bootsel button and could then drag and drop the UF2 file (downloaded from here: https://micropython.org/download/rp2-pico-w/) onto the RPI-RP2 to upon which the Pico rebooted and now ran micropython
-* Onboard LED - I could then test out the microcontroller via the built in LED through a simple code snippet in the main.py file which I then uploaded to the Pico through the 3 dots up in the right corner of the VSCode UI:
-
-
+????????????????????
 
 ### Putting everything together
 
