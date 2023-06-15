@@ -79,10 +79,6 @@ How is the device programmed? Which IDE are you using? Describe all steps from f
 
 For this project I have chosen to use Visual Studio Code as my Integrated Development Environment. I have this IDE installed on my computer since before, but if you don't you can download it from here: https://code.visualstudio.com/download
 
-#### Extensions
-
-To interact with the Pico I will be using the extension "Pymakr" which you can find by searching for it under the "Extensions" tab on the left hand side of VSCode. This extensions simplifies the development and provides several tools and access to the REPL.
-
 #### Flashing Pico
 
 If the Pico W is new it will need the micropython firmware installed on it.
@@ -91,9 +87,28 @@ Download the UF2 file from here: https://micropython.org/download/rp2-pico-w/
 
 You can then proceed to press the onboard bootsel button (placing the Pico W in download mode) while connecting the microcontroller to the computer. When the drive/file explorer (RPI-RP2) opens you can release the bootsel button and drag and drop the previously downloaded UF2 file onto the RPI-RP2, upon which the Pico will reboot and now run micropython
 
+#### Extensions
+
+To interact with the Pico I will be using the extension "Pymakr" which you can find by searching for it under the "Extensions" tab on the left hand side of VSCode:
+
+![Extensions VSCode](/images/extension-btn-vsc.png)
+
 #### How the code is uploaded
 
-To be able to actually run the code you write in VSCode you need to upload it to the Pico W first. You can do that by
+To be able to actually run the code you write in VSCode you need to upload it to the Pico W first.
+This extensions simplifies the development and provides several tools like a user friendly means to manage the device connection, uploading the project to the Pico and access to a REPL console. It will show up on the left hand side of your VSCode like such:
+
+![Pymakr VSCode](/images/pymakr-btn-vsc.png)
+
+Whilst having your device connected to the computer via USB, click on the symbol for Pymakr shown above and a new tab will show. If you hover over the specific serial usb port there is a symbol in the form of a lightning which says "Connect device" - go ahead and press it. You will then connect to the Pico and can now upload you project or run/stop your script directly via the VSCode UI:
+
+![Upload project](/images/pymakr-upload-project.png)
+
+You can then create a REPL terminal by pressing the play button shown below and the main script should run automatically - if not, use execfile("main.py") as visible in the screenshot.
+
+![Run project](/images/pymakr-run-script.png)
+
+To stop the script you either press ctrl C in the REPL or press the 3 dots in the photo above and select "Stop script"
 
 #### Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
 
