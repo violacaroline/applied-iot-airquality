@@ -32,6 +32,8 @@ I built a web thing that measures the temperature and humidity of its surroundin
 
 ### Estimated Time to Complete Project
 
+2 working days, with some time for the unexpected stuff life (read: software) throws at you.
+
 ### Objective
 
 Describe why you have chosen to build this specific device. What purpose does it serve? What do you want to do with the data, and what new insights do you think it will give?
@@ -50,7 +52,7 @@ It measures the temperature and humidity of my island home at Isla Mujeres, Mexi
 
 How very, very hot the summer months here in the carribean really is. 
 
-Jokes aside, purely data wise I had no idea that it was so much more humid here than Sweden, almost double at over 60% compared to some of the measurements done by fellow students back home.
+Jokes aside, purely data wise I had no idea that it was so much more humid here than Sweden, more than the double at over 70% compared to some of the measurements done by fellow students back home.
 
 Also it has given me insights into electrical circuits and components used for minor IoT projects, along with protocols and how parts interact with each other. From firmware being installed on Pico, to code uploaded on the Pico and then connectivity with wifi to get the data over to Adafruit.
 
@@ -68,7 +70,41 @@ Explain all material that is needed. All sensors, where you bought them and thei
 | Resistors        | 10 pcs, 1W, 10kohm | Mercado Libre   | 30kr | 
 | DHT22            | Humidity & Temperature sensor | Amazon  | 120kr |
 | MQ-135           | Air Quality sensor detecting smoke, amoniac, alcohol etc. | Mercado Libre | 40kr |
-| LED light        | 100 LED's, 5mm, 80mcd, 2.1v | Mercado Libre | 80kr | 
+| LED light        | 100 LED's, 5mm, 80mcd, 2.1v | Mercado Libre | 80kr |
+
+#### Raspberry Pi Pico W
+
+![Pico W](images/pico-w.png)
+
+#### Breadboard 830 points
+
+![Breadboard 830 points](images/breadboard.png)
+
+#### Male/Male Jumper Wires
+
+![Male-Male Jumper Wires](images/jumper-wires.png)
+
+#### 10kohm Resistors
+
+![10kohm Resistors](images/10kohm-resistor.png)
+
+#### DHT22 Sensor
+
+![Dht22 Sensor](images/dht22.png)
+
+#### MQ135 Sensor (front)
+
+![MQ135 Sensor](images/mq135-front.png)
+
+#### MQ135 Sensor (back)
+
+![MQ135 Sensor](images/mq135-back.png)
+
+#### LEDs
+
+![LEDs](images/leds.png)
+
+
 
 
 ### Computer setup
@@ -118,6 +154,13 @@ To stop the script you either press ctrl C in the REPL or press the 3 dots in th
 
 How is all the electronics connected? Describe all the wiring. Good if you can show a circuit diagram. Be specific on how to connect everything and what to think of in terms of resistors, current, and voltage. Is this only for a development setup, or could it be used in production?
 
+To put everything together I am using my 830 point breadboard as a base to facilitate and to make everything more stable. 
+
+On one side I have pushed down the Pico W and on the other I have the two sensors that I am using. 
+
+![Hardware setup](/images/hardware-setup.jpg)
+
+
 - [ ] Circuit diagram (can be hand drawn)
 - [ ] *Electrical calculations
 
@@ -137,7 +180,7 @@ Import core functions of your code here, and don't forget to explain what you ha
 
 #### Connecting to WIFI
 
-To connect to the local wifi I created a seperate file and defined a method "connect" taking the SSID and the SSID-password as arguments, I could then call this method inside my main method.
+I connect to my local WIFI via the boot.py file which is run automatically on th Pico W's boot up (when starting). Typically, you would place any kind of logic or config needed to successfully run your main, therefor you can allow it to handle your network configuration.
 
 Inside the function, it first checks if the device is already connected to a network. 
 If not, it proceeds with the connection process.
@@ -145,7 +188,12 @@ It activates the Wi-Fi interface and attempts to connect to the specified networ
 While the device is not connected to the network, it repeatedly tries to connect with a one-second delay between attempts to give some time for the process before checking the connection status again.
 Once the device is successfully connected, it prints a message confirming the connection and displays the network configuration details.
 
+boot.py:
+
 ```
+import network, time
+from env_variables import ENV_VARIABLES 
+
 def connect(SSID, SSID_PASSWORD):
     sta_if = network.WLAN(network.STA_IF)
     if not sta_if.isconnected():
@@ -154,8 +202,10 @@ def connect(SSID, SSID_PASSWORD):
         sta_if.connect(SSID, SSID_PASSWORD)
         while not sta_if.isconnected():
             print("Attempting to connect....")
-            utime.sleep(1)
+            time.sleep(1)
     print('Connected! Network config:', sta_if.ifconfig())
+
+connect(ENV_VARIABLES['SSID'], ENV_VARIABLES['SSID_PASSWORD'])
 
 ```
 
@@ -164,6 +214,7 @@ def connect(SSID, SSID_PASSWORD):
 How is the data transmitted to the internet or local server? Describe the package format. All the different steps that are needed in getting the data to your end-point. Explain both the code and choice of wireless protocols and API information models, if any.
 
 #### How often is the data sent?
+
 #### Which wireless protocols did you use (WiFi, LoRa, etc ...)?
 #### Which transport protocols were used (MQTT, webhook, etc ...)
 #### Which information models were used (WoT TD, Fiware, etc...)
