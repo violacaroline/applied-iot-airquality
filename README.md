@@ -148,7 +148,9 @@ To stop the script you either press ctrl C in the REPL or press the 3 dots in th
 
 #### Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
 
-????????????????????
+I have chosen to visualize the data using the ELK-stack (Elasticsearch, Logstash and Kibana). This required installation of some software onto my computer. These are the steps you can take to set it all up:
+
+
 
 ### Putting everything together
 
