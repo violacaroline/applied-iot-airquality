@@ -8,14 +8,6 @@ This is a simple IoT project using the MQ-135 gas sensor module as well as the D
 
 ## Tutorial on how to build a temperature and humidity sensor
 
-Give a short and brief overview of what your project is about.
-What needs to be included:
-
-- [ ] Title
-- [ ] Your name and student credentials (xx666x)
-- [ ] Short project overview
-- [ ] How much time it might take to do (approximation)
-
 ## Title: Humidity and Temperature Station
 
 ### Name & Student Credentials
@@ -24,7 +16,7 @@ Andrea Viola Caroline Åkesson
 
 ca223pw
 
-### Project Overview
+### Short Project Overview
 
 **MAKE SURE RED LED LAMP IS IMPLEMENTED**
 
@@ -44,11 +36,11 @@ Describe why you have chosen to build this specific device. What purpose does it
 
 Simply because it seemed to be a good place for an introduction to IoT at a beginner friendly level and I could also extend it slightly with external LED lamps.
 
-#### What purpose does it serve
+#### What purpose does it serve?
 
 It measures the temperature and humidity of my island home at Isla Mujeres, Mexico. Also, sending a warning through lighting a LED lamp as humidity rises.
 
-#### What insights do you think it will give
+#### What insights will it give?
 
 How very, very hot the summer months here in the carribean really is. 
 
@@ -74,25 +66,37 @@ Explain all material that is needed. All sensors, where you bought them and thei
 
 #### Raspberry Pi Pico W
 
+I am using the Raspberry Pi Pico W which is an affordable, wireless-enabled microcontroller board. It offers GPIO pins, programmability in C/C++ & MicroPython, and supports various interfaces (ex. SPI, 12C, UART). It is compact and offer wireless connectivity, power efficiency, and community support (RP2040 Raspberry Pi community) making it a good choice for a wide range of IoT applications, from home automation and sensor monitoring to remote control projects etc.
+
 ![Pico W](images/pico-w.png)
 
 #### Breadboard 830 points
+
+I opted for an 830-point breadboard as a physical base for my project. It offers ample space, compatibility and is affordable. It accommodates my numerous components and simplifies the circuit connections.
 
 ![Breadboard 830 points](images/breadboard.png)
 
 #### Male/Male Jumper Wires
 
+I work with Male-to-male jumper wires which have connectors at both ends, allowing to establish quick and temporary connections between components on the breadboard or between pins. They are versatile, flexible, and simplify circuit building, making them ideal for rapid prototyping, experimenting, and connecting components without soldering or permanent connections.
+
 ![Male-Male Jumper Wires](images/jumper-wires.png)
 
 #### 10kohm Resistors
+
+For the DHT22 sensor a resistor between 4.7-10kohm was recommended for communication between the sensor and microcontroller. It sets the default voltage level when the data line is not actively transmitting data and ensures reliable signal transmission and accurate readings.
 
 ![10kohm Resistors](images/10kohm-resistor.png)
 
 #### DHT22 Sensor
 
+I am working with the DHT22 sensor that measures temperature and humidity. It provides accurate, reliable readings and is easy to use with microcontrollers making it suitable for applications such as home automation, weather stations, and environmental monitoring.
+
 ![Dht22 Sensor](images/dht22.png)
 
 #### MQ135 Sensor (front)
+
+I am also using the MQ135 sensor that detects various gases, including air quality parameters like CO2, NH3, and harmful substances. It can monitor indoor air quality, pollution levels, and gas leakage ensuring safe and healthy living environments. It would need to be calibered properly to see real amounts of gases, I merely use it as Yes/No detects some gas.
 
 ![MQ135 Sensor](images/mq135-front.png)
 
@@ -102,9 +106,9 @@ Explain all material that is needed. All sensors, where you bought them and thei
 
 #### LEDs
 
+LEDs allows for visual feedback, status indicators and creative lighting effects leading to a visually appealing experience and user interaction. They are very energy efficient, semiconducting (made of materials inbetween that of conductors and insulators) devices emiting light when electric current passes through them.
+
 ![LEDs](images/leds.png)
-
-
 
 
 ### Computer setup
@@ -125,7 +129,7 @@ You can then proceed to press the onboard bootsel button (placing the Pico W in 
 
 #### Extensions
 
-To interact with the Pico I will be using the extension "Pymakr" which you can find by searching for it under the "Extensions" tab on the left hand side of VSCode:
+To interact with the Pico I am using the extension "Pymakr" which you can find by searching for it under the "Extensions" tab on the left hand side of VSCode:
 
 ![Extensions VSCode](/images/extension-btn-vsc.png)
 
@@ -148,7 +152,6 @@ To stop the script you either press ctrl C in the REPL or press the 3 dots in th
 
 #### Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
 
-I have chosen to visualize the data using the ELK-stack (Elasticsearch, Logstash and Kibana). This required installation of some software onto my computer. These are the steps you can take to set it all up:
 
 
 
@@ -211,7 +214,7 @@ connect(ENV_VARIABLES['SSID'], ENV_VARIABLES['SSID_PASSWORD'])
 
 ```
 
-### Data flow / Connectivity
+### Transmitting the Data / Connectivity
 
 How is the data transmitted to the internet or local server? Describe the package format. All the different steps that are needed in getting the data to your end-point. Explain both the code and choice of wireless protocols and API information models, if any.
 
@@ -238,5 +241,3 @@ Show the final results of your project. Give your final thoughts on how you thin
 #### Show the final results of the project
 #### Pictures
 #### Video presentation of the project
-
-
