@@ -2,7 +2,7 @@ import json
 import machine
 import time
 from dht import DHT22
-# import urequests
+import urequests
 import ubinascii
 from umqttsimple import MQTTClient
 from env_variables import ENV_VARIABLES
@@ -19,18 +19,17 @@ ADAFRUIT_PASSWORD = ENV_VARIABLES['ADAFRUIT_PASSWORD']
 
 # Set up feed URI's
 TOPIC_LED = b'CarolineA/feeds/temperature-and-humidity-and-airquality-and-led.led'
-TOPIC_TEMP_AND_HUMIDITY = b'CarolineA/groups/temperature-and-humidity-and-airquality-and-led'
+TOPIC_TEMP_HUMIDITY_AIRQUALITY_LED = b'CarolineA/groups/temperature-and-humidity-and-airquality-and-led'
 
 
 # ---------------- SET UP OWN API ROUTES --------------
-# api_url_temp = 'https://moti.serveo.net/api/temperature'
-# api_url_humidity = 'https://moti.serveo.net/api/humidity'
-# api_url_airquality = 'https://moti.serveo.net/api/airquality'
 
-# api_url_temp = 'http://192.168.0.7:8088/api/temperature'
-# api_url_humidity = 'http://192.168.0.7:8088/api/humidity'
-# api_url_airquality = 'http://192.168.0.7:8088/api/airquality'
+# api_url_temp = 'https://totus.serveo.net/api/temperature'
+# api_url_humidity = 'https://totus.serveo.net/api/humidity'
+# api_url_airquality = 'https://totus.serveo.net/api/airquality'
 
+
+# ---------------- SET UP PICO W ----------------------
 
 onboard_led = machine.Pin('LED', machine.Pin.OUT)
 # Setup external LED as output
@@ -68,7 +67,7 @@ mqttClient = MQTTClient(CLIENT_ID, MQTT_BROKER, PORT, ADAFRUIT_USERNAME, ADAFRUI
 mqttClient.set_callback(subscription_callback) # whenever a new message comes (to picoW), print the topic and message (The call back function will run whenever a message is published on a topic that the PicoW is subscribed to.)
 mqttClient.connect()
 mqttClient.subscribe(TOPIC_LED)
-print(f'Connected to MQTT  Broker :: {MQTT_BROKER}, and waiting for callback function to be called!')
+print(f'Connected to MQTT  Broker :: {MQTT_BROKER}, waiting for callback function to be called!')
 
 while True:
     print('Hello from Main.py')
@@ -99,9 +98,7 @@ while True:
     # Read the analog signal from the MQ-135 sensor
     air_quality_value = analog_mq135_pin.read_u16()
 
-    if air_quality_value > 30000:
-        led_mq.toggle()
-    elif air_quality_value > 20000:
+    if digital_air_quality_value == 0:
         led_mq.value(1)
     else:
         led_mq.value(0)
@@ -130,7 +127,7 @@ while True:
 
         payload = json.dumps(sensorData)
         
-        mqttClient.publish(TOPIC_TEMP_AND_HUMIDITY, payload.encode())
+        mqttClient.publish(TOPIC_TEMP_HUMIDITY_AIRQUALITY_LED, payload.encode())
         
         last_publish = time.time()
         print('Published!')
@@ -165,9 +162,13 @@ while True:
     # print(airqualityDataJson)
 
     # # Send the data to API
-    # tempResponse = urequests.post(api_url_temp, json=tempDataJson)
-    # humidityResponse = urequests.post(api_url_humidity, json=humidityDataJson)
-    # airqualityResponse = urequests.post(api_url_airquality, json=airqualityDataJson)
+    # urequests.post(api_url_temp, json=tempDataJson)
+
+
+    # urequests.post(api_url_humidity, json=humidityDataJson)
+
+    
+    # urequests.post(api_url_airquality, json=airqualityDataJson)
 
     # -------------- SENDING DATA VIA ELK STACK ------------------
 

@@ -161,13 +161,26 @@ How is all the electronics connected? Describe all the wiring. Good if you can s
 
 To put everything together I am using my 830 point breadboard as a base to facilitate and to make everything more stable. 
 
-On one side I have pushed down the Pico W and on the other I have the two sensors that I am using. 
+On one side I have pushed down the Pico W and on the other I have the two sensors that I am using and two LED's.
 
 ![Hardware setup](/images/hardware-setup.jpg)
 
+#### Circuit Diagram
 
-- [ ] Circuit diagram (can be hand drawn)
-- [ ] *Electrical calculations
+![Fritzing Circuit Diagram](/images/export-fritzing.png)
+
+#### Electrical Calculations
+
+Since my LED's operate on 2.1V and my Pico W on 3.3V I need to "drop" 1.2V. It can be done using resistors, to calculate the resistance I need I can use Ohm's law. You then take: 
+
+Voltage Source 3.3 
+- Voltage LED 2.1 
+= 1.2
+
+1.2 / 0.02 (20 milliamps)
+= 60
+
+A resistor of 60ohms would be perfect. Unfortunately, I at the time of this project only possessed 10kohm which ultimately made the LED emit only a tiny bit of light. I had many LED's to spare and simply wanted to see what happened if I connect it without a resistor. It worked fine so I let it be as such.
 
 ### Platform
 
@@ -178,6 +191,9 @@ Is your platform based on a local installation or a cloud? Do you plan to use a 
 - [ ] Describe platform in terms of functionality
 - [ ] *Explain and elaborate on what made you choose this platform
 
+#### Adafruit
+
+#### Own implemented API and dotnet Blazor frontend
 
 ### The code
 
