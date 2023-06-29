@@ -17,7 +17,7 @@ PORT = ENV_VARIABLES['PORT']
 ADAFRUIT_USERNAME = ENV_VARIABLES['ADAFRUIT_USERNAME']
 ADAFRUIT_PASSWORD = ENV_VARIABLES['ADAFRUIT_PASSWORD']
 
-# Set up feed URI's
+# Set up Adafruit feed/group URI's
 TOPIC_LED = b'CarolineA/feeds/temperature-and-humidity-and-airquality-and-led.led'
 TOPIC_TEMP_HUMIDITY_AIRQUALITY_LED = b'CarolineA/groups/temperature-and-humidity-and-airquality-and-led'
 
@@ -131,7 +131,6 @@ while True:
         
         last_publish = time.time()
         print('Published!')
-
 
     # -------------- SENDING DATA VIA OWN BUILT DOTNET API ----------------
 
