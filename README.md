@@ -18,7 +18,9 @@ ca223pw
 
 ### Short Project Overview
 
-I built a web thing that measures the temperature and humidity of its surroundings, when humidity reaches over a beyond sweaty level a red LED lamp will turn on. You can also control the microcontrollers onboard LED via the MQTT brokers UI.
+I built a web thing that measures the temperature and humidity of its surroundings, when humidity reaches over a beyond sweaty level a red LED lamp will turn on and when it reaches a level beyond, beyond sweaty it will blink! There is also a gas sensor detecting hazardous gases in our appartment, it could potentially be used as a breathalyzer, but I have only been sitting here waving alcogel in its face - which it sure does detect, and when it does it will turn on a LED to let you know. You can also control the microcontrollers onboard LED via the MQTT brokers UI.
+
+The data collected by it is sent with MQTT to Adafruit and displayed in a dashboard. 
 
 ### Estimated Time to Complete Project
 
@@ -107,8 +109,6 @@ LEDs allows for visual feedback, status indicators and creative lighting effects
 
 ### Computer setup
 
-How is the device programmed? Which IDE are you using? Describe all steps from flashing the firmware to installing plugins in your favorite editor and how flashing is done on MicroPython. The aim is that a beginner should be able to understand.
-
 #### **Chosen IDE**
 
 For this project I have chosen to use Visual Studio Code as my Integrated Development Environment. I have this IDE installed on my computer since before, but if you don't you can download it from here: https://code.visualstudio.com/download
@@ -148,14 +148,11 @@ To stop the script you either press ctrl C in the REPL or press the 3 dots in th
 
 
 
-
 ### Putting everything together
-
-How is all the electronics connected? Describe all the wiring. Good if you can show a circuit diagram. Be specific on how to connect everything and what to think of in terms of resistors, current, and voltage. Is this only for a development setup, or could it be used in production?
 
 To put everything together I am using my 830 point breadboard as a base to facilitate and to make everything more stable. 
 
-On one side I have pushed down the Pico W and on the other I have the two sensors that I am using and two LED's.
+On one side I have pushed down the Pico W and on the other I have the two sensors that I am using along with two external LED's.
 
 ![Hardware setup](/images/hardware-setup.jpg)
 
@@ -165,7 +162,7 @@ On one side I have pushed down the Pico W and on the other I have the two sensor
 
 #### **Electrical Calculations**
 
-Since my LED's operate on 2.1V and my Pico W on 3.3V I need to "drop" 1.2V. It can be done using resistors, to calculate the resistance I need I can use Ohm's law. You then take: 
+Since my LED's operate on 2.1V and my Pico W on 3.3V I need to "drop" 1.2V. It can be done using resistors, to calculate the resistance I use Ohm's law. You then take: 
 
 Voltage Source 3.3 - Voltage LED 2.1 
 = 1.2
@@ -177,22 +174,15 @@ A resistor of 60ohms would be perfect. Unfortunately, I, at the time of this pro
 
 ### Platform
 
-Describe your choice of platform. If you have tried different platforms, it can be good to provide a comparison.
-
-Is your platform based on a local installation or a cloud? Do you plan to use a paid subscription or a free one? Describe the alternatives going forward if you want to scale your idea.
-
-- [ ] Describe platform in terms of functionality
-- [ ] *Explain and elaborate on what made you choose this platform
-
 #### **Adafruit**
 
 I'm using Adafruit to display the data collected by the Pico. It is a cloud service and I have set up what they call a Group, which is a group of feeds representing the different datas/objects it receives/send data from/to (temperature, humidity, airquality, LED). By using a group it let's me send the data as one json object with an inner field of "feeds" which has key value pairs representing the specific feed for that kind of data i.e. "Temperature": tempData, etc. The version im using is free and I intend to keep it that way since it is enough for what I want to do. Payed versions would offer the ability to have more groups, feeds and dashboards etc. Scaling the idea could involve Adafruits integration with other platforms such as IFTT (If This Then That) to automate actions based on the data collected.
 
+I chose this platform due to it's simple setup and ability to show data and also possibly integrate it with other platforms. It is also a womanled company which I liked!
+
 #### **Own implemented API and dotnet Blazor frontend**
 
 ### The code
-
-Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here. Focus on the core functionalities. Have you done a specific function that does a calculation, or are you using a clever function for sending data on two networks? Or, are you checking if the value is reasonable, etc.? Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 
 #### **Connecting to WIFI**
 
@@ -250,8 +240,6 @@ Due to having all relevant feeds in the same group on Adafruit I can send the da
 
 ### Transmitting the Data / Connectivity
 
-How is the data transmitted to the internet or local server? Describe the package format. All the different steps that are needed in getting the data to your end-point. Explain both the code and choice of wireless protocols and API information models, if any.
-
 #### **How often is the data sent?**
 
 The data is published to Adafruit every 5 seconds (there seems to be a slight latency at times).
@@ -262,7 +250,40 @@ I am using WiFi.
 
 #### **Which transport protocols were used (MQTT, webhook, etc ...)**
 
-I am using the MQTT protocol to transfer the data to Adafruit. I originally tried to transfer the data using JSON over HTTP to my own built dotnet API, however the Pico W
+I am using the MQTT protocol to transfer the data in JSON to Adafruit.
+
+```
+        sensorData = {
+            'feeds': {
+                'Temperature': temp,
+                'Humidity': humidity,
+                'Airquality': digital_air_quality_value
+            }
+        }
+
+        payload = json.dumps(sensorData)
+        
+        mqttClient.publish(TOPIC_TEMP_HUMIDITY_AIRQUALITY_LED, payload.encode())
+
+```
+
+First I create an object with a feeds key as specified by Adafruit, I then give that the necessary key value pairs for the data and transform it to JSON before publishing using the mqttClient. The mqttClient is prepared as such:
+
+```
+# Set up MQTT_BROKER info to connect
+CLIENT_ID = ubinascii.hexlify(machine.unique_id()) # To create an MQTT client, we need to get the PICOW unique ID
+MQTT_BROKER = 'io.adafruit.com' # MQTT broker IP address or DNS  
+PORT = ENV_VARIABLES['PORT']
+ADAFRUIT_USERNAME = ENV_VARIABLES['ADAFRUIT_USERNAME']
+ADAFRUIT_PASSWORD = ENV_VARIABLES['ADAFRUIT_PASSWORD']
+
+mqttClient = MQTTClient(CLIENT_ID, MQTT_BROKER, PORT, ADAFRUIT_USERNAME, ADAFRUIT_PASSWORD, keepalive=60)
+mqttClient.set_callback(subscription_callback) # whenever a new message comes (to picoW), print the topic and message (The call back function will run whenever a message is published on a topic that the PicoW is subscribed to.)
+mqttClient.connect()
+mqttClient.subscribe(TOPIC_LED)
+print(f'Connected to MQTT  Broker :: {MQTT_BROKER}, waiting for callback function to be called!')
+
+```
 
 #### **Which information models were used (WoT TD, Fiware,** etc...)
 
@@ -273,7 +294,6 @@ Im not using an information model.
 ### Presenting the data
 
 #### **Provide visual examples of how the dashboard looks. Pictures needed.**
-
 
 Below you can see a screenshot of the Adafruit dashboard I created.
 
