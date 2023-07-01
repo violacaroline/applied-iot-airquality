@@ -309,6 +309,14 @@ I personally have not set up a database. Adafruit saves the data for 30 days and
 
 #### ***Automation/triggers of the data.**
 
+There are a couple of different triggers in my code:
+
+Whenever humidity reaches over 70% one of the external LED's turns on and whenever it reaches over 80% it will toggle it, meaning it will give the affect of blinking with each iteration of the loop.
+
+Whenever the gas sensor detects something the other LED will turn on.
+
+The board can also be triggered from the Adafruit dashboard. I have created a toggle button no the dashboards which switches the Pico W onboard LED on or off.
+
 ### Finalizing the design
 
 #### **Show the final results of the project**
