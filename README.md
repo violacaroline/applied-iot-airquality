@@ -268,7 +268,7 @@ Due to having all relevant feeds in the same group on Adafruit I can send the da
 
 The code snippet below is from my own built dotnet API. When a request comes from the client, I there query the data from one of the feeds in Adafruit, transform it and then only return what the client needs - the values themselves.
 
-´´´
+```
   // Create an instance of HttpClient to make the HTTP request
   var httpClient = new HttpClient();
 
@@ -298,11 +298,11 @@ The code snippet below is from my own built dotnet API. When a request comes fro
     values.Add(value);
   }
   return values;
-´´´
+```
 
 The following code snippet is from my Dotnet Blazor Client. It retreives the necessary data from my API and then just seperates the values (1's and 0's) to their respective list, I can then give a visual representation of how often gas has been encountered in the sensor's surroundings.
 
-´´´
+```
   List<int> listOfOnes = new List<int>();
   List<int> listOfZeros = new List<int>();
 
@@ -320,7 +320,7 @@ The following code snippet is from my Dotnet Blazor Client. It retreives the nec
       listOfZeros.Add(dataPoint);
     }
   }
-´´´
+```
 
 ### Transmitting the Data / Connectivity
 
