@@ -42,7 +42,7 @@ With the DHT22 I measure the temperature and humidity of my island home at Isla 
 
 How very, very hot the summer months here in the carribean really is. 
 
-Jokes aside, purely data wise I had no idea that it was so much more humid here than Sweden, more than the double at over 70% compared to some of the measurements done by fellow students back home. 
+Jokes aside, purely data wise I had no idea that it was so much more humid here than Sweden, more than the double at over 70% compared to some of the measurements done by fellow students back home. It will also show wether or not our appartment contains any hazardous gases you normally would not want there! Which would have us take the necessary steps to remove them.
 
 Also aside from what the project itself does and collects data about - it has given me insights into electrical circuits and components used for minor IoT projects, along with protocols and how parts interact with each other. From firmware being installed on Pico, to code uploaded on the Pico and then connectivity with wifi to get the data over to Adafruit.
 
@@ -203,6 +203,14 @@ Now, as mentioned, Adafruit was not my orignal choice. I wanted to use the ELK-s
 My own built platform, was merely a decision of wanting to try an unfamiliar programming language and I do believe the implementation of it enhanced my understanding of the responsibilities of the parts involved as well as the options of ways to do this!
 
 ### The code
+
+Links to codebases used in this project:
+
+This Project: https://github.com/violacaroline/applied-iot-airquality
+
+Project API: https://github.com/violacaroline/applied-iot-web-api
+
+Project Client: https://github.com/violacaroline/applied-iot-client
 
 #### **Connecting to WIFI**
 
