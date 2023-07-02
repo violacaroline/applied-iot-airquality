@@ -189,11 +189,18 @@ A resistor of 60ohms would be perfect. Unfortunately, I, at the time of this pro
 
 I'm using Adafruit to display the data collected by the Pico. It is a cloud service and I have set up what they call a Group, which is a group of feeds representing the different datas/objects it receives/send data from/to (temperature, humidity, airquality, LED). By using a group it let's me send the data as one json object with an inner field of "feeds" which has key value pairs representing the specific feed for that kind of data i.e. "Temperature": tempData, etc. The version im using is free and I intend to keep it that way since it is enough for what I want to do. Payed versions would offer the ability to have more groups, feeds and dashboards etc. Scaling the idea could involve Adafruits integration with other platforms such as IFTT (If This Then That) to automate actions based on the data collected.
 
-I chose this platform due to it's simple setup and ability to show data and also possibly integrate it with other platforms. It is also a womanled company which I liked!
 
 #### **Own implemented API and dotnet Blazor frontend**
 
 I also implemented my own platform. My Pico W will post data via MQTT to Adafruit, I then let my API request the data available in Adafruits API, it will transform the data to what I need for the client and this client will then display the data in a pie and line chart. I chose to do this for my own challenge and also learn a bit about a new programming language.
+
+#### **Explain and elaborate what made you choose this platform (advanced)**
+
+I chose the Adafruit platform due to it's simple setup and ability to show data and also possibly integrate it with other platforms. It is also a womanled company which I liked!
+
+Now, as mentioned, Adafruit was not my orignal choice. I wanted to use the ELK-stack due to the querying power that Elastic Search offers and also I have heard it is an attractive knowledge to have. I dont have loads and loads of different data, but Elastic essentially offers a really flexible way of querying the exact data you want, which can be a real advantage when the data is growing into Big Data.
+
+My own built platform, was merely a decision of wanting to try an unfamiliar programming language and I do believe the implementation of it enhanced my understanding of the responsibilities of the parts involved as well as the options of ways to do this!
 
 ### The code
 
