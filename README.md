@@ -269,58 +269,60 @@ Due to having all relevant feeds in the same group on Adafruit I can send the da
 The code snippet below is from my own built dotnet API. When a request comes from the client, I there query the data from one of the feeds in Adafruit, transform it and then only return what the client needs - the values themselves.
 
 ´´´
-// Create an instance of HttpClient to make the HTTP request
-      var httpClient = new HttpClient();
 
-      var apiUrl =
-      "https://io.adafruit.com/api/v2/CarolineA/feeds/temperature-and-humidity-and-airquality-and-led.humidity/data";
-      this.apiKey = Environment.GetEnvironmentVariable("ADAFRUIT_API_KEY");
+  // Create an instance of HttpClient to make the HTTP request
+  var httpClient = new HttpClient();
 
-      var requestUrl = $"{apiUrl}?X-AIO-Key={this.apiKey}";
+  var apiUrl =
+  "https://io.adafruit.com/api/v2/CarolineA/feeds/temperature-and-humidity-and-airquality-and-led.humidity/data";
+  this.apiKey = Environment.GetEnvironmentVariable("ADAFRUIT_API_KEY");
 
-      var response = await httpClient.GetAsync(requestUrl);
+  var requestUrl = $"{apiUrl}?X-AIO-Key={this.apiKey}";
 
-      // Read the response content as a string
-      var data = await response.Content.ReadAsStringAsync();
+  var response = await httpClient.GetAsync(requestUrl);
 
-      var jsonObject = JsonSerializer.Deserialize<dynamic>(data);
+  // Read the response content as a string
+  var data = await response.Content.ReadAsStringAsync();
 
-      var values = new List<double>();
+  var jsonObject = JsonSerializer.Deserialize<dynamic>(data);
 
-      foreach (var dataPoint in jsonObject.EnumerateArray())
-      {
-        var humidityData = JsonSerializer.Deserialize<HumidityData>(dataPoint.GetRawText());
+  var values = new List<double>();
 
-        string formattedValue = humidityData.value.Replace('.', ',');
+  foreach (var dataPoint in jsonObject.EnumerateArray())
+  {
+    var humidityData = JsonSerializer.Deserialize<HumidityData>(dataPoint.GetRawText());
 
-        double value = double.Parse(formattedValue);
+    string formattedValue = humidityData.value.Replace('.', ',');
 
-        values.Add(value);
-      }
-      return values;
+    double value = double.Parse(formattedValue);
+
+    values.Add(value);
+  }
+  return values;
+  
 ´´´
 
 The following code snippet is from my Dotnet Blazor Client. It retreives the necessary data from my API and then just seperates the values (1's and 0's) to their respective list, I can then give a visual representation of how often gas has been encountered in the sensor's surroundings.
 
 ´´´
 
-    List<int> listOfOnes = new List<int>();
-    List<int> listOfZeros = new List<int>();
+  List<int> listOfOnes = new List<int>();
+  List<int> listOfZeros = new List<int>();
 
-    List<int> airQualityList = await this.GetPieData();
+  List<int> airQualityList = await this.GetPieData();
 
-    // Loop through the airQualityList and populate the respective lists
-    foreach (var dataPoint in airQualityList)
+  // Loop through the airQualityList and populate the respective lists
+  foreach (var dataPoint in airQualityList)
+  {
+    if (dataPoint == 1)
     {
-      if (dataPoint == 1)
-      {
-        listOfOnes.Add(dataPoint);
-      }
-      else
-      {
-        listOfZeros.Add(dataPoint);
-      }
+      listOfOnes.Add(dataPoint);
     }
+    else
+    {
+      listOfZeros.Add(dataPoint);
+    }
+  }
 
 ´´´
 
@@ -339,17 +341,17 @@ I am using WiFi.
 I am using the MQTT protocol to transfer the data in JSON to Adafruit.
 
 ```
-        sensorData = {
-            'feeds': {
-                'Temperature': temp,
-                'Humidity': humidity,
-                'Airquality': digital_air_quality_value
-            }
-        }
+  sensorData = {
+    'feeds': {
+      'Temperature': temp,
+      'Humidity': humidity,
+      'Airquality': digital_air_quality_value
+    }
+  }
 
-        payload = json.dumps(sensorData)
-        
-        mqttClient.publish(TOPIC_TEMP_HUMIDITY_AIRQUALITY_LED, payload.encode())
+  payload = json.dumps(sensorData)
+  
+  mqttClient.publish(TOPIC_TEMP_HUMIDITY_AIRQUALITY_LED, payload.encode())
 
 ```
 
