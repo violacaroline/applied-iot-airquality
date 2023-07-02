@@ -300,6 +300,30 @@ The code snippet below is from my own built dotnet API. When a request comes fro
       return values;
 ´´´
 
+The following code snippet is from my Dotnet Blazor Client. It retreives the necessary data from my API and then just seperates the values (1's and 0's) to their respective list, I can then give a visual representation of how often gas has been encountered in the sensor's surroundings.
+
+´´´
+
+    List<int> listOfOnes = new List<int>();
+    List<int> listOfZeros = new List<int>();
+
+    List<int> airQualityList = await this.GetPieData();
+
+    // Loop through the airQualityList and populate the respective lists
+    foreach (var dataPoint in airQualityList)
+    {
+      if (dataPoint == 1)
+      {
+        listOfOnes.Add(dataPoint);
+      }
+      else
+      {
+        listOfZeros.Add(dataPoint);
+      }
+    }
+
+´´´
+
 ### Transmitting the Data / Connectivity
 
 #### **How often is the data sent?**
