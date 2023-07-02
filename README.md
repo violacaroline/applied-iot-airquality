@@ -2,13 +2,15 @@
 
 This is a simple IoT project using the MQ-135 gas sensor module as well as the DHT22 temperature and humidity sensor to collect some interesting qualities of the surrounding air.
 
-# Tutorial Report Template
+### Relevant Links
 
-**Please keep the total length of the tutorial below 25k characters.** You can include code that is linked to a repository. Keep the code snippets in the tutorial short.
+This Project: https://github.com/violacaroline/applied-iot-airquality
 
-## Tutorial on how to build a temperature and humidity sensor
+Project API: https://github.com/violacaroline/applied-iot-web-api
 
-## Title: Humidity and Temperature Station
+Project Client: https://github.com/violacaroline/applied-iot-client
+
+## Title: Humidity, Temperature and Air Quality Station
 
 ### Name & Student Credentials
 
@@ -24,7 +26,7 @@ The data collected by it is sent with MQTT to Adafruit and displayed in a dashbo
 
 ### Estimated Time to Complete Project
 
-2 ?????????????????????? working days, with some time for the unexpected stuff life (read: software) throws at you.
+3 working days, with some time for the unexpected stuff life (read: software) throws at you.
 
 ### Objective
 
