@@ -266,6 +266,40 @@ Due to having all relevant feeds in the same group on Adafruit I can send the da
 
 ```
 
+The code snippet below is from my own built dotnet API. When a request comes from the client, I there query the data from one of the feeds in Adafruit, transform it and then only return what the client needs - the values themselves.
+
+´´´
+// Create an instance of HttpClient to make the HTTP request
+      var httpClient = new HttpClient();
+
+      var apiUrl =
+      "https://io.adafruit.com/api/v2/CarolineA/feeds/temperature-and-humidity-and-airquality-and-led.humidity/data";
+      this.apiKey = Environment.GetEnvironmentVariable("ADAFRUIT_API_KEY");
+
+      var requestUrl = $"{apiUrl}?X-AIO-Key={this.apiKey}";
+
+      var response = await httpClient.GetAsync(requestUrl);
+
+      // Read the response content as a string
+      var data = await response.Content.ReadAsStringAsync();
+
+      var jsonObject = JsonSerializer.Deserialize<dynamic>(data);
+
+      var values = new List<double>();
+
+      foreach (var dataPoint in jsonObject.EnumerateArray())
+      {
+        var humidityData = JsonSerializer.Deserialize<HumidityData>(dataPoint.GetRawText());
+
+        string formattedValue = humidityData.value.Replace('.', ',');
+
+        double value = double.Parse(formattedValue);
+
+        values.Add(value);
+      }
+      return values;
+´´´
+
 ### Transmitting the Data / Connectivity
 
 #### **How often is the data sent?**
