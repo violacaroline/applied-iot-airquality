@@ -76,7 +76,7 @@ I opted for an 830-point breadboard as a physical base for my project. It offers
 
 #### **Male/Male Jumper Wires**
 
-I work with Male-to-male jumper wires which have connectors at both ends, allowing to establish quick and temporary connections between components on the breadboard or between pins. They are versatile, flexible, and simplify circuit building, making them ideal for rapid prototyping, experimenting, and connecting components without soldering or permanent connections.
+I work with Male-to-Male jumper wires which have connectors at both ends, allowing to establish quick and temporary connections between components on the breadboard or between pins. They are versatile, flexible, and simplify circuit building, making them ideal for rapid prototyping, experimenting, and connecting components without soldering or permanent connections.
 
 ![Male-Male Jumper Wires](images/jumper-wires.png)
 
@@ -117,7 +117,7 @@ For this project I have chosen to use Visual Studio Code as my Integrated Develo
 
 #### **Flashing Pico**
 
-If the Pico W is new it will need the micropython firmware installed on it.
+The Pico W will need the micropython firmware installed on it.
 
 Download the UF2 file from here: https://micropython.org/download/rp2-pico-w/
 
@@ -148,6 +148,15 @@ To stop the script you either press ctrl C in the REPL or press the 3 dots in th
 
 #### **Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.**
 
+For the IoT part I had what I needed already installed. When it comes to the presentation and handling of data I went through quite a few problems and different ideas of how to handle it. Initially, I wanted to use the ELK-stack and therefor downloaded the software needed from here:
+
+Elastic Search: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/install-elasticsearch.html
+Kibana: https://www.elastic.co/guide/en/kibana/8.8/install.html
+Logstash: https://www.elastic.co/guide/en/logstash/8.8/installing-logstash.html
+
+Then, when I had an issue with Kibana that I did not manage to solve I got the idea of building my own platform! An API and a client visualizing the data in charts and I could also take the oppurtunity and do it in a new language - namely dotnet. Which I then downloaded from here:
+
+Dotnet: https://dotnet.microsoft.com/en-us/download
 
 
 ### Putting everything together
@@ -183,6 +192,8 @@ I'm using Adafruit to display the data collected by the Pico. It is a cloud serv
 I chose this platform due to it's simple setup and ability to show data and also possibly integrate it with other platforms. It is also a womanled company which I liked!
 
 #### **Own implemented API and dotnet Blazor frontend**
+
+I also implemented my own platform. My Pico W will post data via MQTT to Adafruit, I then let my API request the data available in Adafruits API, it will transform the data to what I need for the client and this client will then display the data in a pie and line chart. I chose to do this for my own challenge and also learn a bit about a new programming language.
 
 ### The code
 
@@ -293,13 +304,22 @@ Im not using an information model.
 
 #### ***Elaborate on the design choices regarding data transmission and wireless protocols. That is how your choices affect the device range and battery consumption.**
 
+In my case WiFi is good for what I need. The sensors are located in my own apartment and there is no need for long range connectivity. Ultimately, the difference would be that WiFi offers me greater bandwith, but shorter range whereas for example LoRa offers great range, but lower bandwith. WiFi consumes more power compared to for example bluetooth, but it does offer me a bit more flexibility range wise. MQTT (Message Queuing Telemetry Transport) is a lightweight messaging protocol designed for machine-to-machine communication. It operates over TCP/IP and can work efficiently even with limited bandwidth and low-power devices. MQTT's publish-subscribe model reduces unnecessary data transfers, which can conserve battery power and extend device range. However, I only use MQTT inbetween the device and Adafruit, there could actually be some real advantages in implementing MQTT communication between my API and Adafruit too. At the moment I am using HTTP to retreive data via Adafruits REST API. I could potentially have my API subscribe to the topics on Adafruit and as such receive data real time. It would also reduce network overhead and lower power consumption as well as enhance scalability, I could set up many clients that subscribe to that data and receive it simultaneously. This choice was most about my familarity with the techniques, besides, for the real-time-data to make perfect sense there should be a persistent connection between my API and the client too, which calls for yet another technology, like websocket and quickly the implementation turned more complex and unfamiliar.
+
 ### Presenting the data
 
 #### **Provide visual examples of how the dashboard looks. Pictures needed.**
 
-Below you can see a screenshot of the Adafruit dashboard I created.
+Below you can see a screenshot of the Adafruit dashboard I created:
 
 ![Adafruit dashboard](/images/adafruit-dashboard.png)
+
+And some images from my own client:
+
+![Dotnet Blazor App, pie chart](/images/blazor-pie-chart.png)
+
+![Dotnet Blazor App, line chart](/images/blazor-line-chart.png)
+
 
 #### **How often is data saved in the database.**
 
@@ -330,6 +350,10 @@ When I started out the project I originally planned to use the ELK stack. I did 
 I then got the idea of setting up my own API and dashboard to handle and visualize the data! Something I got really excited about because I planned to try out a new programming language, namely dotnet, both for API and frontend. I set up the API and successfully made requests via Postman and stored the data in Elastic. Since the Pico and my computer are different entities I could not use localhost and therefor set up a tunnel with serveo.net for the Pico to be able to reach my API. Unfortunately, when trying to make these requests from the Pico to post the real data collected by it, the Pico program would crash with an ENOMEM and I have not been able to solve the issue. I created a fake endpoint via RequestBin to see if it was rather my API that was the problem (although it has been working fine with Postman), I first only sent temperature data to the fake endpoint - that worked, BUT I then tried sending temperature, humidity and airquality (3 requests) to the fake endpoint and then - ENOMEM. I then tried to send only temperature data to my own API, but it seemed the Pico was already upset and now I did not manage to even send a single request neither to my API nor the fake endpoint. This makes me believe that it indeed has something to do with the memory, but during a help session it was me and several TA's trying to solve it without success.
 
 So, when the final week before hand-in layed before me I set up the Adafruit account and dashboard instead. I am dissappointed that the way I tried to challenge myself did not pay off, but Adafruit did the trick and I could at least have a finished solution to submit.
+
+**Edit:**
+
+Just from pure curiousity to try dotnet I went around the problem of getting the data directly from Pico to my API instead I let my API request the data from Adafruit, transform it and then send the necessary values for display in the charts of my front end.
 
 #### **Pictures**
 
