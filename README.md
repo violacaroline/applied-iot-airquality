@@ -10,6 +10,8 @@ Project API: https://github.com/violacaroline/applied-iot-web-api
 
 Project Client: https://github.com/violacaroline/applied-iot-client
 
+Video Link: https://youtu.be/PBRkZdJgycw
+
 ## Title: Humidity, Temperature and Air Quality Station
 
 ### Name & Student Credentials
@@ -433,3 +435,5 @@ Just from pure curiousity to try dotnet I went around the problem of getting the
 ![Final result breadboard](/images/final-result-breadboard.jpg)
 
 #### **Video presentation of the project**
+
+https://youtu.be/PBRkZdJgycw
