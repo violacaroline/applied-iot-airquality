@@ -434,6 +434,8 @@ Just from pure curiousity to try dotnet I went around the problem of getting the
 
 ![Final result breadboard](/images/final-result-breadboard.jpg)
 
+![Dotnet Blazor App, pie chart](/images/blazor-pie-chart.png)
+
 #### **Video presentation of the project**
 
 https://youtu.be/PBRkZdJgycw
