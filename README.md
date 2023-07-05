@@ -193,7 +193,7 @@ A resistor of 60ohms would be perfect. Unfortunately, I, at the time of this pro
 
 #### **Adafruit**
 
-I'm using Adafruit to display the data collected by the Pico. It is a cloud service and I have set up what they call a Group, which is a group of feeds representing the different datas/objects it receives/send data from/to (temperature, humidity, airquality, LED). By using a group it let's me send the data as one json object with an inner field of "feeds" which has key value pairs representing the specific feed for that kind of data i.e. "Temperature": tempData, etc. The version im using is free and I intend to keep it that way since it is enough for what I want to do. Payed versions would offer the ability to have more groups, feeds and dashboards etc. Scaling the idea could involve Adafruits integration with other platforms such as IFTT (If This Then That) to automate actions based on the data collected.
+I'm using Adafruit to display the data collected by the Pico. It is a cloud service and I have set up what they call a Group, which is a group of feeds representing the different datas/objects it receives/send data from/to (temperature, humidity, airquality, LED). By using a group it let's me send the data as one json object with an inner field of "feeds" which has key value pairs representing the specific feed for that kind of data i.e. "Temperature": tempData, etc. The version im using is free and I intend to keep it that way since it is enough for what I want to do. Payed versions would offer the ability to have more groups, feeds and dashboards etc.
 
 
 #### **Own implemented API and dotnet Blazor frontend**
@@ -202,7 +202,7 @@ I also implemented my own platform. My Pico W will post data via MQTT to Adafrui
 
 #### **Explain and elaborate what made you choose this platform (advanced)**
 
-I chose the Adafruit platform due to it's simple setup and ability to show data and also possibly integrate it with other platforms. It is also a womanled company which I liked!
+I chose the Adafruit platform due to it's simple setup and ability to show data and also possibly integrate it with other platforms. It is also a womanled company which I liked! Scaling the idea could involve Adafruits integration with other platforms such as IFTT (If This Then That) to automate actions based on the data collected. Which leaves my project open to extension!
 
 Now, as mentioned, Adafruit was not my orignal choice. I wanted to use the ELK-stack due to the querying power that Elastic Search offers and also I have heard it is an attractive knowledge to have. I dont have loads and loads of different data, but Elastic essentially offers a really flexible way of querying the exact data you want, which can be a real advantage when the data is growing into Big Data. Here is a screen shot of the data in my elastic search instance's temperature index. This data was injected using Postman when testing my own built dotnet API:
 
