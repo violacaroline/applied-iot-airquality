@@ -169,7 +169,13 @@ Dotnet: https://dotnet.microsoft.com/en-us/download
 
 To put everything together I am using my 830 point breadboard as a base to facilitate and to make everything more stable. 
 
-On one side I have pushed down the Pico W and on the other I have the two sensors that I am using along with two external LED's.
+On one side I have pushed down the Pico W and on the other I have the two sensors that I am using along with two external LED's. The Pico W power (pin number 36, 3V3) and ground (pin number 38) are connected to the rails on one side of the breadboard allowing me to connect other entities to power and ground via the rails.
+
+The DHT sensor is then - aside from VCC to the power/plus rail and ground to the ground/minus rail - connected with the data/signal pin of the sensor to the Pico W GPIO 22 (pin number 29).
+
+The MQ135 sensor is aside from power and ground to the rails, connected via its analog pin to the ADC pin of the Pico (analog digital converter) GPIO28 or pin number 34. The digital pin of the sensor is connected to GPIO 21 (pin number 27).
+
+Then I have two LED's. These are connected with the anode (longer lead, positive) to GPIO 10 & 14 respectively (pin number 14 & 19) and with the cathode (shorter lead, negative) to GND on pin number 13 & 18 respectively.
 
 ![Hardware setup](/images/hardware-setup.jpg)
 
