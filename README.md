@@ -117,6 +117,10 @@ LEDs allows for visual feedback, status indicators and creative lighting effects
 
 For this project I have chosen to use Visual Studio Code as my Integrated Development Environment. I have this IDE installed on my computer since before, but if you don't you can download it from here: https://code.visualstudio.com/download
 
+#### **Node.js**
+
+For the extension Pymakr you will need nodejs installed on your computer. If you dont already have nodejs installed you can download and install it here: https://nodejs.org/es/download
+
 #### **Flashing Pico**
 
 The Pico W will need the micropython firmware installed on it.
