@@ -204,7 +204,9 @@ I also implemented my own platform. My Pico W will post data via MQTT to Adafrui
 
 I chose the Adafruit platform due to it's simple setup and ability to show data and also possibly integrate it with other platforms. It is also a womanled company which I liked!
 
-Now, as mentioned, Adafruit was not my orignal choice. I wanted to use the ELK-stack due to the querying power that Elastic Search offers and also I have heard it is an attractive knowledge to have. I dont have loads and loads of different data, but Elastic essentially offers a really flexible way of querying the exact data you want, which can be a real advantage when the data is growing into Big Data.
+Now, as mentioned, Adafruit was not my orignal choice. I wanted to use the ELK-stack due to the querying power that Elastic Search offers and also I have heard it is an attractive knowledge to have. I dont have loads and loads of different data, but Elastic essentially offers a really flexible way of querying the exact data you want, which can be a real advantage when the data is growing into Big Data. Here is a screen shot of the data in my elastic search instance's temperature index. This data was injected using Postman when testing my own built dotnet API:
+
+![Data in my elastic search](/images/elastic-data-temp-index.png)
 
 My own built platform, was merely a decision of wanting to try an unfamiliar programming language and I do believe the implementation of it enhanced my understanding of the responsibilities of the parts involved as well as the options of ways to do this!
 
