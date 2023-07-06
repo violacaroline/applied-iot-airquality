@@ -422,7 +422,7 @@ Whenever humidity reaches over 70% one of the external LED's turns on and whenev
 
 Whenever the gas sensor detects something the other LED will turn on.
 
-The board can also be triggered from the Adafruit dashboard. I have created a toggle button no the dashboards which switches the Pico W onboard LED on or off.
+The board can also be triggered from the Adafruit dashboard. I have created a toggle button on the dashboard which switches the Pico W onboard LED on or off.
 
 ### Finalizing the design
 
