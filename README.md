@@ -414,7 +414,7 @@ I publish the data to Adafruit every 5 seconds, meaning 12 times per minute. The
 
 I personally have not set up a database. Adafruit saves the data for 30 days and you can also download the data if you want. That said, I did set up Elastic Search which is a document-oriented database, this because of pure curiousity of the software and rapid and flexible querying process. It is excellent for write-once-read-many-workloads, but would struggle if the specific entity changed which in a relational database with proper normalization would not be an issue. For my data though, it wouldnt have changed, it would have been written and then only read over and over. Elastic is unfortunately not a part of the end product, but I learnt from it nonetheless.
 
-#### **Automation/triggers of the data.**
+#### ***Automation/triggers of the data.**
 
 There are a couple of different triggers in my code:
 
